@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Certificado Alternativo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <style>
+    body {
+      background: #e9f5f2;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+    }
+    .certificado-alt {
+      background: #fff;
+      max-width: 700px;
+      width: 100%;
+      padding: 50px 40px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border-radius: 15px;
+      border-top: 10px solid #4CAF50;
+      position: relative;
+      color: #333;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .header h1 {
+      font-weight: 900;
+      font-size: 32px;
+      color: #2E7D32;
+      margin: 0;
+    }
+    .contenido {
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: center;
+      margin-bottom: 45px;
+    }
+    .nombre {
+      font-size: 26px;
+      font-weight: 700;
+      margin: 15px 0;
+      color: #1B5E20;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+    .logos {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    .logos img {
+      height: 50px;
+      filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.1));
+    }
+    .firmas {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+    }
+    .firma {
+      text-align: center;
+    }
+    .firma .linea {
+      width: 160px;
+      height: 2px;
+      background: #4CAF50;
+      margin: 30px auto 10px;
+      border-radius: 2px;
+    }
+    .firma span {
+      display: block;
+      font-weight: 600;
+      color: #4a4a4a;
+    }
+    .fecha {
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      margin-top: 40px;
+    }
+    .boton {
+      text-align: center;
+      margin-top: 30px;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 17px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background: #388E3C;
+    }
+  </style>
+</head>
+<body>
+
+<div id="certificadoAlt" class="certificado-alt">
+  <div class="header">
+    <h1>Certificado de Finalización</h1>
+  </div>
+  <div class="contenido">
+    Este certificado acredita que<br />
+    <div class="nombre" contenteditable="true">IRAEL JULIO SOTELO QUISPE</div>
+    ha completado exitosamente el curso de<br />
+    <strong>Desarrollo Web: HTML, CSS y JavaScript</strong><br />
+    con una duración de 40 horas.
+  </div>
+
+  <div class="logos">
+    <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML5 Logo" />
+    <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="CSS3 Logo" />
+    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="JavaScript Logo" />
+  </div>
+
+  <div class="firmas">
+    <div class="firma">
+      <div class="linea"></div>
+      <span>Jose Mendoza</span>
+      <span>Instructor</span>
+    </div>
+    <div class="firma">
+      <div class="linea"></div>
+      <span>Paola Guaman</span>
+      <span>Coordinadora Académica</span>
+    </div>
+  </div>
+
+  <div class="fecha" id="fechaAlt"></div>
+</div>
+
+<div class="boton">
+  <button onclick="generarPDF()">Descargar PDF</button>
+</div>
+
+<script>
+  document.getElementById('fechaAlt').textContent = `Fecha: ${new Date().toLocaleDateString('es-ES')}`;
+
+  function generarPDF() {
+    const element = document.getElementById('certificadoAlt');
+    const options = {
+      margin:       0.5,
+      filename:     'certificado-alternativo.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2 },
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().set(options).from(element).save();
+  }
+</script>
+
+</body>
+</html>
